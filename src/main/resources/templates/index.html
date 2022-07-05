@@ -235,7 +235,7 @@
         },
         insert: function (writer, password, content) {
             debugger;
-            let blog = {
+            let board = {
                 "writer": writer,
                 "password": password,
                 "content": content,
@@ -243,9 +243,9 @@
             }
             $.ajax({
                 type: "POST",
-                url: "/blog",
+                url: "/board",
                 contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(blog),
+                data: JSON.stringify(board),
                 success: function (response) {
                     window.location.reload();
                 }
@@ -320,7 +320,7 @@
             }
         },
         update: function (id, writer, password, content, img) {
-            let blog = {
+            let board = {
                 "writer": writer,
                 "password": password,
                 "content": content,
@@ -329,9 +329,9 @@
             debugger
             $.ajax({
                 type: "PUT",
-                url: "/blog/" + id,
+                url: "/board/" + id,
                 contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(blog),
+                data: JSON.stringify(board),
                 success: function (response) {
                     window.location.reload();
                 },
@@ -374,14 +374,14 @@
             }
         },
         delete: function (id, password) {
-            let blog = {
+            let board = {
                 "password": password
             }
             $.ajax({
                 type: "DELETE",
-                url: "/blog/" + id,
+                url: "/board/" + id,
                 contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(blog),
+                data: JSON.stringify(board),
                 success: function (response) {
                     window.location.reload();
                 },
@@ -671,30 +671,30 @@
   </div>
 </div>
 <div class="myBlogs">
-  <div class="row row-cols-1 row-cols-md-3 g-3" id="blog-box">
+  <div class="row row-cols-1 row-cols-md-3 g-3" id="board-box">
     <th:block th:if="${pageable.content.size() != 0}">
-      <div th:each="blog : ${pageable.content}">
-        <div class="col" id="cardBox" th:onmouseover="|mouseover(this, ${blog.id})|"
-             th:onmouseout="|mouseout(this, ${blog.id})|">
+      <div th:each="board : ${pageable.content}">
+        <div class="col" id="cardBox" th:onmouseover="|mouseover(this, ${board.id})|"
+             th:onmouseout="|mouseout(this, ${board.id})|">
           <div class="card h-100">
             <div style="height: 387px;  width: 387px;">
-              <img th:src="${blog.imgUrl}" th:id="${blog.id} + '-img'" class="card-img-top">
+              <img th:src="${board.imgUrl}" th:id="${board.id} + '-img'" class="card-img-top">
             </div>
-            <div style="position:absolute; top:31%; left:31%; display: none;" th:id="${blog.id} + '-see'">
+            <div style="position:absolute; top:31%; left:31%; display: none;" th:id="${board.id} + '-see'">
               <button class="btn btn-outline-secondary"
-                      th:attr="onclick=|blogUpdate.modalShow(true, ${blog.id}, '${blog.content}', '${blog.writer}', '${blog.imgUrl}')|">
+                      th:attr="onclick=|blogUpdate.modalShow(true, ${board.id}, '${board.content}', '${board.writer}', '${board.imgUrl}')|">
                 수정
               </button>
-              <button class="btn btn-outline-secondary" th:attr="onclick=|blogDetail.modalShow(true, ${blog.id})|">댓글
+              <button class="btn btn-outline-secondary" th:attr="onclick=|blogDetail.modalShow(true, ${board.id})|">댓글
               </button>
-              <button class="btn btn-outline-danger" th:attr="onclick=|blogDelete.modalShow(${blog.id})|">삭제</button>
+              <button class="btn btn-outline-danger" th:attr="onclick=|blogDelete.modalShow(${board.id})|">삭제</button>
             </div>
             <div class="card-body">
               <div style="display: flex">
-                <p class="mycomment" style="margin-left: 5%" th:text="${blog.writer}"></p>
-                <p class="mycomment" style="margin-left: 25%" th:text="${blog.createDate}"></p>
+                <p class="mycomment" style="margin-left: 5%" th:text="${board.writer}"></p>
+                <p class="mycomment" style="margin-left: 25%" th:text="${board.createDate}"></p>
               </div>
-              <p class="card-text" th:text="${blog.content}"></p>
+              <p class="card-text" th:text="${board.content}"></p>
             </div>
           </div>
         </div>

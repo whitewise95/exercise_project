@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Blog extends Timestamped {
+public class Board extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -30,3 +30,5 @@
 
 # BASE 소스
 - [20220704일지 이동](https://whitewise95.tistory.com/138)
+- [220705일지 이동](https://whitewise95.tistory.com/143?category=1032442)
+- [220713일지 ](https://whitewise95.tistory.com/164?category=1032442)

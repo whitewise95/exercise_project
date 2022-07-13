@@ -3,8 +3,8 @@
 
 이 프로젝트의 이름은 비준신현이다. 왜 비준신현인지 알고 싶다면 ..... 메일로(whitewise95@gmail.com)...물어봐주세요 ㅎㅎ 
 
-### API 내역서 [이동](https://www.notion.so/dc091a9361ec499ea9f7c3eb1a284213?v=1c10aeadb7c1482aac0fe133eb4f9a72)
-### ERD [이동](https://www.notion.so/ERD-8f20204851eb456cb65f7a707a175ad1)
+### API 내역서 [이동](https://beneficial-cement-b8c.notion.site/ca50e7922dab4a20ae7e3e8bcc8acd43?v=36144a34cdab4cdeb9d53dcc72bd5748)
+### ERD [이동](https://www.notion.so/ERD-84bafe7534d0487ea58c6adb2417f811)
 
 
 # 깃플로우 / 코드컨벤션 및  깃 플로우 전략

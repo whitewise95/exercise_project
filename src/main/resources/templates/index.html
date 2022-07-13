@@ -110,6 +110,20 @@
 
         init();
 
+        $("#upload").click(function () {
+            if (isUpload) {
+                $("#image").val("");
+                $("#imageSubject").attr("placeholder", "png, 387x387 파일만 업로드 가능합니다.");
+                $("#upload").text("이미지 업로드");
+                $("#upload").attr("class", "btn btn-outline-success");
+                isUpload = false;
+                imgUrl = "";
+            } else {
+                $("#image").click();
+            }
+
+        })
+
         $("#updateUpload").click(function () {
             if (isUpdateUpload) {
                 $("#updateImage").val("");

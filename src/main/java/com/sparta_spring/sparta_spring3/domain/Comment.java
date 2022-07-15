@@ -25,6 +25,9 @@ public class Comment extends Timestamped {
     @Column(nullable = false)
     private String UserId;
 
+    @ManyToOne
+    private Board board;
+
     @Builder
     public Comment(String comment, Long blogId, String userId) {
         this.comment = comment;

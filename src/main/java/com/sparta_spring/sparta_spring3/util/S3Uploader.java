@@ -3,9 +3,7 @@ package com.sparta_spring.sparta_spring3.util;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.*;
 import com.amazonaws.services.s3.model.*;
-import com.sparta_spring.sparta_spring3.domain.User;
 import com.sparta_spring.sparta_spring3.dto.FileUploadResponse;
-import com.sparta_spring.sparta_spring3.repository.UserRepository;
 import com.sparta_spring.sparta_spring3.util.file.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.File;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,39 +22,17 @@ public class S3Uploader {
     private final AmazonS3 amazonS3;
     private final FileUpload fileUpload;
     private final FileUtils fileUtils;
-    private final UserRepository userRepository;
 
     @Value("${cloud.aws.s3.bucket}")
     public String bucket; // S3 버킷 이름
 
-    public FileUploadResponse upload(Long userId, MultipartFile multipartFile, String dirName) throws IOException {
-        File uploadFile = new File(System.getProperty("user.dir") + "/" + multipartFile.getOriginalFilename());
-        if (uploadFile.createNewFile()) { // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
-            FileOutputStream fos = new FileOutputStream(uploadFile);
-            fos.write(multipartFile.getBytes());
-        }
-
-        return upload(userId, uploadFile, dirName);
-    }
-
-    private FileUploadResponse upload(Long userId, File uploadFile, String dirName) {
-        String imgName = dirName + "/" + fileUtils.makeFileName(uploadFile);
-        String uploadImageUrl = putS3(uploadFile, imgName);
-        removeNewFile(uploadFile);
-
-        User user = userRepository.findById(userId).get();
-        //        user.setImgPath(uploadImageUrl);
-
-        return new FileUploadResponse(imgName, uploadImageUrl);
-    }
-
     /* MultipartFile와 path만 가지고 이미지 업로드 */
-    public FileUploadResponse upload(MultipartFile uploadFile, String path) {
+    public String upload(MultipartFile uploadFile, String path) {
         String imgName = path + fileUtils.makeFileName(uploadFile);
         File imageFile = fileUpload.multipartFileToFileWithUpload(uploadFile);
         String uploadImageUrl = putS3(imageFile, imgName);
         removeNewFile(imageFile);
-        return new FileUploadResponse(uploadImageUrl);
+        return new FileUploadResponse(uploadImageUrl).getUrl();
     }
 
     /* imagePath만 가지고 이미지 업로드 */

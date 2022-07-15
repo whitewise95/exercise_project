@@ -1,8 +1,11 @@
 package com.sparta_spring.sparta_spring3.service;
 
 import com.sparta_spring.sparta_spring3.domain.Board;
-import com.sparta_spring.sparta_spring3.dto.RequestBlogDto;
+import com.sparta_spring.sparta_spring3.dto.*;
 import com.sparta_spring.sparta_spring3.repository.BoardRepository;
+import com.sparta_spring.sparta_spring3.security.UserDetailsImpl;
+import org.springframework.data.domain.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,4 +53,24 @@ public class BoardService {
     public boolean isPasswordCheck(String dbPassword, String requestPassword) {
         return dbPassword.equals(requestPassword);
     }
+
+    @Transactional
+    public Board boardWrite(RequestBlogDto requestBlogDto) {
+        return boardRepository.save(
+                new Board(
+                        requestBlogDto,
+                        findUser().getUser()
+                )
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Board> findAll(Pageable pageable) {
+        return boardRepository.findByUserId(findUser().getUser().getId(), pageable);
+    }
+
+    private UserDetailsImpl findUser() {
+        return (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
 }

@@ -34,7 +34,7 @@ public class BoardController {
                                @PageableDefault(size = 6, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
                                @RequestParam(value = "currentPage", defaultValue = "1") int page) {
 
-            model.addAttribute("pageable", boardRepository.findAll(pageable));
+            model.addAttribute("pageable", boardService.findAll(pageable));
             model.addAttribute("page", page);
             return "index";
         }
@@ -46,10 +46,8 @@ public class BoardController {
     }
 
     @PostMapping("/board")
-    public Long blogWrite(@RequestBody Board board) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsImpl user = (UserDetailsImpl)authentication.getPrincipal();
-        return boardRepository.save(board).getId();
+    public Board blogWrite(@RequestBody RequestBlogDto requestBlogDto) {
+        return boardService.boardWrite(requestBlogDto);
     }
 
     @PutMapping("/board/{id}")

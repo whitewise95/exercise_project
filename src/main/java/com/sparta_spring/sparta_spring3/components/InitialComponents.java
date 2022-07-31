@@ -11,5 +11,4 @@ public class InitialComponents {
     public Components components() {
         return new Components();
     }
-
 }
